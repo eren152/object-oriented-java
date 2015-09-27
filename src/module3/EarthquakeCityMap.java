@@ -111,7 +111,7 @@ public class EarthquakeCityMap extends PApplet {
     	float mag = Float.parseFloat(magObj.toString());
     	int blue = color(0, 127, 255);
     	int yellow = color(255, 255, 0);
-    	int red = color(205, 51, 51);
+    	int red = color(205, 0, 0);
 		if(mag > 0 && mag < THRESHOLD_LIGHT){
 			marker.setColor(blue);
 			marker.setRadius(MINOR_EARTHQUAKES_RADIO);
@@ -127,6 +127,22 @@ public class EarthquakeCityMap extends PApplet {
 	
 	public void draw() {
 	    background(10);
+	    fill(255,255,204);
+	    rect(20, 50, 160, 238);
+	    fill(0, 0, 0);
+	    text("Earthquakes Key", 40, 70);
+	    fill(205, 51, 51);
+	    ellipse(35, 90, MODERATE_AND_HIGHER_EARTHQUAKES_RADIO, MODERATE_AND_HIGHER_EARTHQUAKES_RADIO);
+	    fill(0, 0, 0);
+	    text("5.0 + Magnitude", 45, 95);
+	    fill(255, 255, 0);
+	    ellipse(35, 110, LIGHT_EARTHQUAKES_RADIO,LIGHT_EARTHQUAKES_RADIO);
+	    fill(0, 0, 0);
+	    text("4.0 + Magnitude", 45, 115);
+	    fill(0, 127, 255);
+	    ellipse(35, 130, MINOR_EARTHQUAKES_RADIO,MINOR_EARTHQUAKES_RADIO);
+	    fill(0, 0, 0);
+	    text("Below 4.0", 45, 135);
 	    map.draw();
 	    addKey();
 	}
