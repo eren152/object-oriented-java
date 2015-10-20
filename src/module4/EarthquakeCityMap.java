@@ -1,7 +1,11 @@
 package module4;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
@@ -142,16 +146,18 @@ public class EarthquakeCityMap extends PApplet {
 		text("Earthquake Key", 50, 75);
 		
 		fill(color(255, 0, 0));
-		ellipse(50, 125, 15, 15);
-		fill(color(255, 255, 0));
-		ellipse(50, 175, 10, 10);
-		fill(color(0, 0, 255));
-		ellipse(50, 225, 5, 5);
+		//ellipse(50, 125, 15, 15);
+		triangle(55, 130, 60, 120, 65, 130);
+		//fill(color(255, 255, 0));
+		//ellipse(50, 175, 10, 10);
+		//fill(color(0, 0, 255));
+		//ellipse(50, 225, 5, 5);
 		
 		fill(0, 0, 0);
-		text("5.0+ Magnitude", 75, 125);
-		text("4.0+ Magnitude", 75, 175);
-		text("Below 4.0", 75, 225);
+		text("City Marker", 75, 125);
+		//text("5.0+ Magnitude", 75, 125);
+		//text("4.0+ Magnitude", 75, 175);
+		//text("Below 4.0", 75, 225);
 	}
 
 	
@@ -166,7 +172,8 @@ public class EarthquakeCityMap extends PApplet {
 		
 		// TODO: Implement this method using the helper method isInCountry
 		for( Marker country : countryMarkers){
-			return isInCountry(earthquake, country);
+			if(isInCountry(earthquake, country))
+				return true;
 		}
 		// not inside any country
 		return false;
@@ -180,7 +187,23 @@ public class EarthquakeCityMap extends PApplet {
 	// And LandQuakeMarkers have a "country" property set.
 	private void printQuakes() 
 	{
-		// TODO: Implement this method
+		String oceanQuakeName = "OCEAN QUAKES";
+		Integer oceanQuakes = 0;
+		//Create a map with all the countries and his earthquake 
+		Map<String, Integer> quakeInACountry = new TreeMap<String,Integer>();
+		//Iterate over every quake to count quakes in every country
+		for (Marker marker : quakeMarkers) {
+			if (((EarthquakeMarker) marker).isOnLand){
+				String country = ((LandQuakeMarker) marker).getCountry();
+				quakeInACountry.put(country, quakeInACountry.get(country)==null?1:quakeInACountry.get(country)+1);
+			}else{
+				oceanQuakes++;
+			}
+		}
+		quakeInACountry.put(oceanQuakeName, oceanQuakes);
+		for( Map.Entry<String, Integer> entry : quakeInACountry.entrySet() ){
+			System.out.println(entry.getKey() + ": " + entry.getValue());
+		}
 	}
 	
 	
