@@ -1,5 +1,6 @@
 package module5;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -146,11 +147,18 @@ public class EarthquakeCityMap extends PApplet {
 	private void selectMarkerIfHover(List<Marker> markers)
 	{
 		// TODO: Implement this method
+		for(Marker marker : markers){
+			Point point = getMousePosition();
+			if(point != null && marker.isInside(map, point.x, point.y) && lastSelected == null){
+				marker.setSelected(true);
+				lastSelected = (CommonMarker) marker;
+			}
+		}
 	}
 	
 	/** The event handler for mouse clicks
 	 * It will display an earthquake and its threat circle of cities
-	 * Or if a city is clicked, it will display all the earthquakes 
+	 * Or if a city is clicked, it will display all the earthquakes l
 	 * where the city is in the threat circle
 	 */
 	@Override
